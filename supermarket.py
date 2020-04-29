@@ -12,7 +12,7 @@ def create_new_product(item_desc, item_sell_price, item_stock_lvl, item_catergor
 def delete_product(item_desc):
     if item_desc in supermarket_obj_dict.keys():
         supermarket_obj_dict.pop(item_desc)
-        return '{} has been deleted'.format(item_desc)
+        print('{} has been deleted'.format(item_desc))
     else:
         return False
 
@@ -77,18 +77,23 @@ def add_newitem_menu():
 def delete_item_menu():
     while True:
        
-        item_desc = input()
+        item_desc = input("please input the name of the product you want to delete :")
         if item_desc in supermarket_obj_dict.keys():
-            del_coniformation = input("are you sure you want to delete", item_desc, "y/n")
+            del_coniformation = input("are you sure you want to delete {} y/n :".format(item_desc))
             if del_coniformation.lower() == "y":
                 delete_product(item_desc)
+                
+                break
+            else:
+                break
             
         else:
             print("item is not in database")
-            break
+            continue
 
 
-
+create_new_product("apple", 2, 100, "fruit", "dole")
+create_new_product("pear", 3, 100, "fruit", "dole")
 def edit_item_menu():
     while True:
 
@@ -136,6 +141,9 @@ def edit_item_menu():
 
 
 
+
+
+
 while True:
     print('========================== Welcome to Jc supermaket inventory manager ==========================')
     print(""" please choose an option
@@ -153,11 +161,11 @@ while True:
             add_newitem_menu()
             continue
         elif main_option == 3:
-            print("thank you for using goodbye")
-            break
+            edit_item_menu()
+            continue
         elif main_option == 4:
-            print("thank you for using goodbye")
-            break
+            delete_item_menu()
+            continue
         elif main_option == 0:
             print("thank you for using goodbye")
             break
