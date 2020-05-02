@@ -92,6 +92,17 @@ def delete_item_menu():
             continue
 
 
+def compute_total(supermarket_list):
+    stock_lvl_list = map(lambda product: product.get_item_stock_lvl(), supermarket_list)
+    print(sum(stock_lvl_list))
+
+def compute_average(supermarket_list):
+    stock_lvl_list = map(lambda product: product.get_item_stock_lvl(), supermarket_list)
+    print(sum(stock_lvl_list) / len(supermarket_list))
+
+
+
+
 create_new_product("apple", 2, 100, "fruit", "dole")
 create_new_product("pear", 3, 100, "fruit", "dole")
 def edit_item_menu():
@@ -156,6 +167,8 @@ while True:
         main_option = int(input("please enter an option :"))
         if main_option == 1:
             display_all_products()
+            compute_average(supermarket_obj_dict.values())
+            compute_total(supermarket_obj_dict.values())
             continue
         elif main_option == 2:
             add_newitem_menu()
