@@ -4,19 +4,30 @@ from supermarket_model import SuperMarket
 # the bubble sort algorithm
 
 
-def bubbleSort(supermarket_list):
+def bubbleSort(supermarket_list,order):
     arr = len(supermarket_list)
-    print(range(supermarket_list - 1, 0, -1))
-    # Perform n-1 bubble operations on the sequence
-    for i in range(arr - 1, 0, -1):
-        # Bubble the largest item to the end
-        for j in range(i):
-            if supermarket_list[j].get_item_sell_price() > supermarket_list[j + 1].get_item_sell_price():
-                # Swap the j and j+1 items
-                temp = supermarket_list[j]
-                supermarket_list[j] = supermarket_list[j + 1]
-                supermarket_list[j + 1] = temp
-    return(supermarket_list)
+    if order == "decending":
+        # Perform n-1 bubble operations on the sequence
+        for i in range(arr - 1, 0, -1):
+            # Bubble the largest item to the end
+            for j in range(i):
+                if supermarket_list[j].get_item_sell_price() <= supermarket_list[j + 1].get_item_sell_price():
+                    # Swap the j and j+1 items
+                    temp = supermarket_list[j]
+                    supermarket_list[j] = supermarket_list[j + 1]
+                    supermarket_list[j + 1] = temp
+        return (supermarket_list)
+    else:
+        for i in range(arr - 1, 0, -1):
+            # Bubble the largest item to the end
+            for j in range(i):
+                if supermarket_list[j].get_item_sell_price() <= supermarket_list[j + 1].get_item_sell_price():
+                    # Swap the j and j+1 items
+                    temp = supermarket_list[j]
+                    supermarket_list[j] = supermarket_list[j + 1]
+                    supermarket_list[j + 1] = temp
+        return (supermarket_list)
+    
 
 
 # Test codes

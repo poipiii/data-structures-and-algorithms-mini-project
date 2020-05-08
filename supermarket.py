@@ -1,5 +1,7 @@
 from supermarket_model import SuperMarket
-
+from binarysearch import binarySearch
+from bubblesort import bubbleSort
+from insersionsort import insertionSort
 supermarket_obj_dict = {}
 
 def create_new_product(item_desc, item_sell_price, item_stock_lvl, item_catergory, item_supplier):
@@ -54,6 +56,15 @@ def display_all_products():
         print(products.get_item_desc(), " | ",
               products.get_item_sell_price(), " | ", products.get_item_stock_lvl(), " | ", products.get_item_catergory(), " | ", products.get_item_supplier(), " | ")
 
+
+def display_products(results):
+    print("product database")
+    print("===========================================================================")
+    print("descrption------sell_price------stock------catergory------supplier")
+    for products in results:
+        print(products.get_item_desc(), " | ",
+              products.get_item_sell_price(), " | ", products.get_item_stock_lvl(), " | ", products.get_item_catergory(), " | ", products.get_item_supplier(), " | ")
+
 def add_newitem_menu():
     while True:
         try:
@@ -101,10 +112,24 @@ def compute_average(supermarket_list):
     print(sum(stock_lvl_list) / len(supermarket_list))
 
 
+def searchBinary(key):
+    result = binarySearch(list(supermarket_obj_dict.values()), key)
+    return result
 
+def sort_priceBubble(order):
+    result = bubbleSort(list(supermarket_obj_dict.values()),order)
+    return result
+
+
+def sort_priceInsersion():
+    result = insertionSort(list(supermarket_obj_dict.values()))
+    return result
 
 create_new_product("apple", 2, 100, "fruit", "dole")
-create_new_product("pear", 3, 100, "fruit", "dole")
+create_new_product("orange", 2, 100, "fruit", "dole")
+create_new_product("pear", 2, 100, "fruit", "dole")
+create_new_product("bannana", 2, 100, "fruit", "dole")
+
 def edit_item_menu():
     while True:
 
@@ -166,9 +191,12 @@ while True:
     try:
         main_option = int(input("please enter an option :"))
         if main_option == 1:
-            display_all_products()
-            compute_average(supermarket_obj_dict.values())
-            compute_total(supermarket_obj_dict.values())
+            # display_all_products()
+            display_products(searchBinary(2))
+            # display_products(sort_priceBubble("decending"))
+            # display_products(sort_priceInsersion())
+            # compute_average(supermarket_obj_dict.values())
+            # compute_total(supermarket_obj_dict.values())
             continue
         elif main_option == 2:
             add_newitem_menu()
