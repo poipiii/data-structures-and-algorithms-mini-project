@@ -65,6 +65,15 @@ def display_products(results):
         print(products.get_item_desc(), " | ",
               products.get_item_sell_price(), " | ", products.get_item_stock_lvl(), " | ", products.get_item_catergory(), " | ", products.get_item_supplier(), " | ")
 
+
+def display_test(*args):
+    print("product database")
+    print("===========================================================================")
+    print("descrption------sell_price------stock------catergory------supplier")
+    print(args)
+    for products in supermarket_obj_dict.values():
+        print(products. args())
+
 def add_newitem_menu():
     while True:
         try:
@@ -116,8 +125,8 @@ def searchBinary(key):
     result = binarySearch(list(supermarket_obj_dict.values()), key)
     return result
 
-def sort_priceBubble(order):
-    result = bubbleSort(list(supermarket_obj_dict.values()),order)
+def sort_priceBubble(order,key):
+    result = bubbleSort(list(supermarket_obj_dict.values()),order,key)
     return result
 
 
@@ -126,9 +135,9 @@ def sort_priceInsersion():
     return result
 
 create_new_product("apple", 2, 100, "fruit", "dole")
-create_new_product("orange", 2, 100, "fruit", "dole")
-create_new_product("pear", 2, 100, "fruit", "dole")
-create_new_product("bannana", 2, 100, "fruit", "dole")
+create_new_product("orange", 6, 100, "stuff", "dole")
+create_new_product("pear", 4, 100, "fruit", "dole")
+create_new_product("bannana", 3, 100, "stuff", "dole")
 
 def edit_item_menu():
     while True:
@@ -177,8 +186,54 @@ def edit_item_menu():
 
 
 
+def display():
+    while True:
+            print("""what would you like to display
+                1.display all products
+                2.search product by price
+                3.sort product using bubble sort
+                4.sort product using insersion sort
+                5.display total stock 
+                6.display average stock
+                0. quit display menu""")
+            try:
+                display_choice = int(input("please input a choice"))
+            except ValueError:
+                print("not a valid option")
+                continue
+            if display_choice == 1:
+                display_all_products()
+                continue
+            elif display_choice == 2:
+                key = int(input("input the price of item you want to search"))
+                display_products(searchBinary(key))
+                continue
+            elif display_choice == 3:
+                print("""sort options
+                desc
+                price
+                stock 
+                catergory
+                supplier
+                """ )
+                key = input("input the sort option",)
+                display_products(sort_priceBubble("decending",key))
+            elif display_choice == 4:
+                print("""sort options
+                price
+                stock level""")
+                key = input("input the sort option",)
+                display_products(sort_priceInsersion())
+            elif display_choice == 5:
+                compute_total(supermarket_obj_dict.values())
+                continue
+            elif display_choice == 6:
+                compute_average(supermarket_obj_dict.values())
+                continue
 
-
+            else:
+                break 
+        
 
 while True:
     print('========================== Welcome to Jc supermaket inventory manager ==========================')
@@ -190,30 +245,33 @@ while True:
     0 Quit application""" )
     try:
         main_option = int(input("please enter an option :"))
-        if main_option == 1:
-            # display_all_products()
-            display_products(searchBinary(2))
-            # display_products(sort_priceBubble("decending"))
-            # display_products(sort_priceInsersion())
-            # compute_average(supermarket_obj_dict.values())
-            # compute_total(supermarket_obj_dict.values())
-            continue
-        elif main_option == 2:
-            add_newitem_menu()
-            continue
-        elif main_option == 3:
-            edit_item_menu()
-            continue
-        elif main_option == 4:
-            delete_item_menu()
-            continue
-        elif main_option == 0:
-            print("thank you for using goodbye")
-            break
-
     except ValueError:
-        print("invalid option please enter again")
+        print("invalid option please enter a valid option")
         continue
+    if main_option == 1:
+        # display_all_products()
+        # display_products(searchBinary(2))
+        # display_products(sort_priceBubble("decending"))
+        # display_products(sort_priceInsersion())
+        # compute_average(supermarket_obj_dict.values())
+        # compute_total(supermarket_obj_dict.values())
+        display()
+        continue
+    elif main_option == 2:
+        add_newitem_menu()
+        continue
+    elif main_option == 3:
+        edit_item_menu()
+        continue
+    elif main_option == 4:
+        delete_item_menu()
+        continue
+    elif main_option == 0:
+        print("thank you for using goodbye")
+        break
+    else:
+       continue
+   
 
     
   
