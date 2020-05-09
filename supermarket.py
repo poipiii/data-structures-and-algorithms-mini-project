@@ -130,8 +130,8 @@ def sort_priceBubble(order,key):
     return result
 
 
-def sort_priceInsersion():
-    result = insertionSort(list(supermarket_obj_dict.values()))
+def sort_priceInsersion(order,key):
+    result = insertionSort(list(supermarket_obj_dict.values()),order,key)
     return result
 
 create_new_product("apple", 2, 100, "fruit", "dole")
@@ -217,13 +217,19 @@ def display():
                 supplier
                 """ )
                 key = input("input the sort option",)
-                display_products(sort_priceBubble("decending",key))
+                order = input("input A for (accending) or D for (decending)")
+                display_products(sort_priceBubble(order, key))
             elif display_choice == 4:
                 print("""sort options
+                desc
                 price
-                stock level""")
+                stock 
+                catergory
+                supplier
+                """ )
                 key = input("input the sort option",)
-                display_products(sort_priceInsersion())
+                order = input("input A for (accending) or D for (decending)")
+                display_products(sort_priceInsersion(order,key))
             elif display_choice == 5:
                 compute_total(supermarket_obj_dict.values())
                 continue
@@ -234,6 +240,10 @@ def display():
             else:
                 break 
         
+
+
+
+
 
 while True:
     print('========================== Welcome to Jc supermaket inventory manager ==========================')
@@ -249,12 +259,6 @@ while True:
         print("invalid option please enter a valid option")
         continue
     if main_option == 1:
-        # display_all_products()
-        # display_products(searchBinary(2))
-        # display_products(sort_priceBubble("decending"))
-        # display_products(sort_priceInsersion())
-        # compute_average(supermarket_obj_dict.values())
-        # compute_total(supermarket_obj_dict.values())
         display()
         continue
     elif main_option == 2:

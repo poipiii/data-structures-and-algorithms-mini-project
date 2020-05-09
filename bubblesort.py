@@ -6,7 +6,7 @@ from supermarket_model import SuperMarket
 
 def bubbleSort(supermarket_list,order,key):
     arr = len(supermarket_list)
-    if order == "decending":
+    if order.lower() == "d":
         # Perform n-1 bubble operations on the sequence
         for i in range(arr - 1, 0, -1):
             # Bubble the largest item to the end

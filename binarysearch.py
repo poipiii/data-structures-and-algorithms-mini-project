@@ -11,7 +11,6 @@ def binarySearch(theValues, target):
         # print("high = {},mid = {},low = {}".format(high,mid,low))
         # Does the midpoint contain the target?
         # If yes, return midpoint (i.e. index of the list)
-        print('passed',theValues)
         if theValues[mid].get_item_sell_price() == target:
             result.append(theValues[mid])
             #append the found target to results list
@@ -32,6 +31,4 @@ def binarySearch(theValues, target):
         # target is not in the list of values
     return result
 
-# testdata = sorted([5, 9, 9, 3, 1, 6, 10, 2, 9, 7])
-# test2 = binarySearch(testdata,9)
-# print(test2)
+
