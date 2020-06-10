@@ -9,9 +9,10 @@ def challenge(seq, target):
         if currentnum in hashtable:
             #if the current number is in the dictonary print out the current number and the second number stored as a value in the dictonary  
             print("the 2 numbers are", currentnum, hashtable[currentnum])
+            return True
         else:
             #if the current number is not a key in hashtable dictonary add 
             hashtable[target - currentnum] = currentnum
     print("there ae no numbers that add up to target")
     return False
-challenge(seq,12)
+challenge(seq,40)

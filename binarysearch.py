@@ -1,34 +1,30 @@
-def binarySearch(theValues, target):
-    # Start with the entire sequence of elements
+def binarySearch(theValues, target,key):
+    theValues = sorted(theValues, key=lambda x: getattr(x, key))
+    print([getattr(i,key) for i in theValues])
     result = []
     low = 0
-    high = len(theValues) 
-    # Repeatedly subdivide the sequence in half
+    high = len(theValues) -1
     # until the target is found
     while low <= high and len(theValues) != 0:
-     # Find the midpoint of the sequence
+     # divide the 
         mid = round((high + low) / 2)
-        # print("high = {},mid = {},low = {}".format(high,mid,low))
-        # Does the midpoint contain the target?
-        # If yes, return midpoint (i.e. index of the list)
-        if theValues[mid].get_item_sell_price() == target:
-            result.append(theValues[mid])
-            #append the found target to results list
-            theValues.remove(theValues[mid])
-            #remove the found target from theValues
-            high = mid
+        # check if target is at midpoint
+        # If yes append object to results list 
+        if getattr(theValues[mid], key) == target:
+                result.append(theValues[mid])
+                theValues.remove(theValues[mid])
+                high = mid
             #start search again at mid 
-        # Or is the target before the midpoint?
-        elif theValues[mid].get_item_sell_price() > target:
+        # if  target before the midpoint set high + 1
+        elif getattr(theValues[mid],key) > target:
             high = mid -1
 
 
-        # Or is the target after the midpoint?
+        # check if target is after the midpoint if it is set low to mid + 1
         else:
             low = mid +1
-
-        # If the sequence cannot be subdivided further,
-        # target is not in the list of values
-    return result
+ 
+        # If the list cannot be divided further or target is not in the list of values exit
+    return result 
 
 
