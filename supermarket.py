@@ -1,7 +1,10 @@
+#for details of asasingment please see README.md
+
 from supermarket_model import SuperMarket
 from binarysearch import binarySearch
 from bubblesort import bubbleSort
 from insersionsort import insertionSort
+from shell_sort import shellsort
 #initalise a empty dictonary to store supermarket objects 
 supermarket_obj_list = []
 
@@ -19,12 +22,27 @@ def delete_product(obj):
     
 
 #take in item desc,option number and new infomation tonbe edited and sets the new infomation to object 
-def edit_products(result, edit, new_info):
-    old_product = supermarket_obj_list.index(result)
-    setattr(result, edit, new_info)
-    supermarket_obj_list[old_product] = result
-    print("success")
-  
+def edit_products(result,edit, new_info):
+        old_product = supermarket_obj_list.index(result)
+        if edit == 1:
+            result.set_item_sell_price(float(new_info))
+            supermarket_obj_list[old_product] = result
+        elif edit == 2:
+            result.set_item_stock_lvl(int(new_info))
+            supermarket_obj_list[old_product] = result
+        elif edit == 3:
+            result.set_item_catergory(new_info)
+            supermarket_obj_list[old_product] = result
+        elif edit == 4:
+            result.set_item_desc(new_info)
+            supermarket_obj_list[old_product] = result
+        else:
+            result.set_item_supplier(new_info)
+            supermarket_obj_list[old_product] = result
+
+        print("success")
+
+    
 #displays all products stored in he dictonary 
 
 def display_all_products(supermarket_obj_list):
@@ -69,7 +87,7 @@ def add_newitem_menu(condition):
                     print("item already in database please enter another item ")
                     add_newitem_menu(True)
                 
-            item_sell_price = int(input("input item price"))
+            item_sell_price = float(input("input item price"))
             item_stk_lvl = int(input("input item stock"))
             item_catergory = input("input item catergory")
             item_supplier = input("input item supplier")
@@ -109,12 +127,12 @@ def delete_item_menu(condition):
 #takes in the entire supermarket object dictonary and compute the total stock level 
 def compute_total(supermarket_list):
     stock_lvl_list = map(lambda product: int(product.get_item_stock_lvl()), supermarket_list)
-    print(sum(stock_lvl_list))
+    print("the total stock level is ",sum(stock_lvl_list))
 
 #takes in the entire supermarket object dictonary and compute the average  stock level 
 def compute_average(supermarket_list):
     stock_lvl_list = map(lambda product: int(product.get_item_stock_lvl()), supermarket_list)
-    print(sum(stock_lvl_list) / len(supermarket_list))
+    print("the average stock level is",sum(stock_lvl_list) / len(supermarket_list))
 
 #takes in a the list of supermarket objects and a key and pass to binarysearch function 
 def searchBinary(target,key):
@@ -123,21 +141,27 @@ def searchBinary(target,key):
     return result
 
 #takes in a the list of supermarket objects , a key and order of sort accending or decending and pass to bubbleSort function   
-def sort_priceBubble(order,key):
+def sort_Bubble(order,key):
     result = bubbleSort(supermarket_obj_list, order, key)
     #return a sorted list of objects 
     return result
 
 #takes in a the list of supermarket objects , a key and order of sort accending or decending and pass to insertionSort function   
-def sort_priceInsersion(order,key):
+def sort_Insersion(order,key):
     result = insertionSort(supermarket_obj_list, order, key)
     #return a sorted list of objects 
+    return result
+
+
+def sort_shell(order, key):
+    result = shellsort(supermarket_obj_list, order, key)
+    #return a sorted list of objects
     return result
 
 create_new_product("apple", 2, 100, "fruit", "dole")
 create_new_product("orange", 6, 100, "stuff", "dole")
 create_new_product("pear", 4, 100, "fruit", "dole")
-create_new_product("bannana", 3, 100, "stuff", "dole")
+create_new_product("bannana", 3, 100, "stuff", "test")
 
 #menu for editing infomation of supermarketr objects 
 def edit_item_menu(condition):
@@ -158,12 +182,42 @@ def edit_item_menu(condition):
             except ValueError:
                 print("please enter a number")
                 edit_item_menu(True)
-            if edit_choice == 0:
+            if edit_choice == 4:
+                new_data = input("input new product description")
+                edit_products(result[0], edit_choice, new_data)
                 main(True)
-            else:
-                new_data = input("input new product data")
-                edit_products(result[0], getattributename(edit_choice), new_data)
+
+            elif edit_choice == 1:
+                try:
+                    new_data = int(input("input new product sell price"))
+                except ValueError:
+                    print("invalid data format please enter again")
+                    edit_item_menu(True)
+                else:
+                    edit_products(result[0], edit_choice, new_data)
+                    main(True)
+
+            elif edit_choice == 2:
+                try:
+                    new_data = int(input("input new product stock"))
+                except ValueError:
+                    print("invalid data format please enter again")
+                    edit_item_menu(True)
+
+                else:
+                    edit_products(result[0], edit_choice, new_data)
+                    main(True)
+
+            elif edit_choice == 3:
+                new_data = input("input new product catergory")
+                edit_products(result[0], edit_choice, new_data)
                 main(True)
+
+            elif edit_choice == 5:
+                new_data = input("input new product supplier")
+                edit_products(result[0], edit_choice, new_data)
+                main(True)
+
             
         else:
             print("item is not in database")
@@ -177,11 +231,12 @@ def display(condition):
     if condition == True:
             print("""what would you like to display
                 1.display all products
-                2.search product by price
+                2.search product
                 3.sort product using bubble sort
                 4.sort product using insersion sort
-                5.display total stock 
-                6.display average stock
+                5.sort product using shell sort
+                6.display total stock 
+                7.display average stock
                 0. quit display menu""")
             try:
                 display_choice = int(input("please input a choice"))
@@ -202,6 +257,8 @@ def display(condition):
                 """)
                 key = int(input("input the search option"))
                 target = input("input the data you want to search")
+                if key == 1 or key ==  2:
+                    target = int(target)
                 display_products(searchBinary(target, getattributename(key)))
                 display(True)
             elif display_choice == 3:
@@ -214,25 +271,39 @@ def display(condition):
                 """)
                 key = int(input("input the sort option"))
                 order = input("input A for (accending) or D for (decending)")
-                display_products(sort_priceBubble(order, getattributename(key)))
+                display_products(sort_Bubble(order, getattributename(key)))
                 display(True)
 
             elif display_choice == 4:
                 print("""sort options
-                desc
-                price
-                stock 
-                catergory
-                supplier
+                 1.item sell price
+                 2.item stock 
+                 3.item catergory
+                 4.item description
+                 5.item supplier
                 """ )
-                key = input("input the sort option",)
+                key = int(input("input the sort option"))
                 order = input("input A for (accending) or D for (decending)")
-                display_products(sort_priceInsersion(order,getattributename(key)))
+                display_products(sort_Insersion(order, getattributename(key)))
+                display(True)
             elif display_choice == 5:
-                compute_total(supermarket_obj_list)
+                print("""sort options
+                 1.item sell price
+                 2.item stock 
+                 3.item catergory
+                 4.item description
+                 5.item supplier
+                """)
+                key = int(input("input the sort option"))
+                order = input("input A for (accending) or D for (decending)")
+                display_products(sort_shell(order, getattributename(key)))
                 display(True)
 
             elif display_choice == 6:
+                compute_total(supermarket_obj_list)
+                display(True)
+
+            elif display_choice == 7:
                 compute_average(supermarket_obj_list)
                 display(True)
 

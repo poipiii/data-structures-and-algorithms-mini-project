@@ -1,3 +1,5 @@
+from supermarket_model import SuperMarket
+
 def binarySearch(theValues, target,key):
     theValues = sorted(theValues, key=lambda x: getattr(x, key))
     print([getattr(i,key) for i in theValues])
@@ -13,8 +15,8 @@ def binarySearch(theValues, target,key):
         if getattr(theValues[mid], key) == target:
                 result.append(theValues[mid])
                 theValues.remove(theValues[mid])
-                high = mid
-            #start search again at mid 
+                high = len(theValues) - 1
+            #start search again at the lenght of the array -1 
         # if  target before the midpoint set high + 1
         elif getattr(theValues[mid],key) > target:
             high = mid -1
